@@ -58,3 +58,6 @@ docs/_build/
 # OSX Files
 *.DS_Store
 Contact GitHub API Training Shop Blog About
+.coveragerc
+.coveralls.yml
+sftp-config.json
