@@ -15,5 +15,7 @@
         "base",
     ],
     "data": [],
-    "demo": [],
+    "demo": [
+        "demo/openacademy_course.xml",
+    ],
 }
