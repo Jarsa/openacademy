@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
+        <record model='ir.ui.view' id='openacademy_course_form'>
+            <field name='name'>Openacademy Course Form View</field>
+            <field name='model'>openacademy.course</field>
+            <field name='arch' type='xml'>
+                <form string='Course'>
+                    <sheet>
+                        <group>
+                            <field name='name'/>
+                            <field name='description'/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
         <record id='action_openacademy_course' model='ir.actions.act_window'>
             <field name='name'>Openacademy Course Action</field>
             <field name='res_model'>openacademy.course</field>
