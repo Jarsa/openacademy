@@ -14,7 +14,10 @@
     "depends": [
         "base",
     ],
-    "data": [],
+    "data": [
+        'views/openacademy.xml',
+        'views/openacademy_course.xml',
+    ],
     "demo": [
         "demo/openacademy_course.xml",
     ],
