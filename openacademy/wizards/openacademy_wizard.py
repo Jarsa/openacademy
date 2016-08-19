@@ -10,7 +10,8 @@ class ClassName(models.TransientModel):
     _description = 'Openacademy Wizard'
 
     def _default_session_ids(self):
-        return self.env['openacademy.session'].browse(self._context.get('active_ids'))
+        return self.env['openacademy.session'].browse(
+            self._context.get('active_ids'))
 
     session_ids = fields.Many2many(
         'openacademy.session',
@@ -19,7 +20,6 @@ class ClassName(models.TransientModel):
 
     @api.multi
     def subscribe(self):
-        import ipdb; ipdb.set_trace()
         for session in self.session_ids:
             session.attendee_ids |= self.attendee_ids
         return {}

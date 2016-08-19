@@ -12,7 +12,8 @@ class OpenacademySessionReport(models.AbstractModel):
         report_obj = self.env['report']
         report = report_obj._get_report_from_name(
             'openacademy.report_session_view')
-        self.env.cr.execute('SELECT * FROM res_partner WHERE is_company IS True')
+        self.env.cr.execute(
+            'SELECT * FROM res_partner WHERE is_company IS True')
         partners = self.env.cr.dictfetchall()
         docargs = {
             'doc_ids': self._ids,
