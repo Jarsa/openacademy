@@ -2,5 +2,7 @@
 <odoo>
     <data>
         <menuitem id="openacademy_menu" name="Openacademy"/>
+        <menuitem id="openacademy_sub_menu" name="Openacademy" parent="openacademy_menu"/>
+        <menuitem id="openacademy_config_menu" name="Configuration" parent="openacademy_menu"/>
     </data>
 </odoo>

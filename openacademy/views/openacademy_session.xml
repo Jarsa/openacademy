@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="openacademy_session_form" model="ir.ui.view">
+            <field name="name">Openacademy Session Form View</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <form string="Session">
+                    <header>
+                        <button name="draft"
+                                type="workflow"
+                                string="Reset to draft"
+                                states="confirmed,done"/>
+                        <button name="confirm"
+                                type="workflow"
+                                string="Confirm"
+                                states="draft"
+                                class="oe_highlight"/>
+                        <button name="done"
+                                type="workflow"
+                                string="Mark as done"
+                                states="confirmed"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group string="General">
+                            <field name="course_id"/>
+                            <field name="name"/>
+                            <field name="instructor_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Schedule">
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="duration"/>
+                            <field name="seats"/>
+                            <field name="taken_seats" widget="progressbar"/>
+                            <field name="attendees_count"/>
+                        </group>
+                        <label for="attendee_ids"/>
+                        <field name="attendee_ids">
+                            <tree>
+                                <field name="name"/>
+                                <field name="email"/>
+                                <field name="street"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="openacademy_session_tree" model="ir.ui.view">
+            <field name="name">Openacademy Session Tree View</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <tree decoration-bf="duration&lt;5" decoration-danger="duration&gt;15" string="Sessions">
+                    <field name="name"/>
+                    <field name="course_id"/>
+                    <field name="taken_seats" widget="progressbar"/>
+                    <field invisible="1" name="duration"/>
+                </tree>
+            </field>
+        </record>
+        <record id="openacademy_session_calendar" model="ir.ui.view">
+            <field name="name">Openacademy Session Calendar View</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <calendar color="instructor_id" date_start="start_date" date_stop="end_date" string="Session Calendar">
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
+        <record id="openacademy_session_gantt_view" model="ir.ui.view">
+            <field name="name">Openacademy Session Gantt View</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <gantt color="course_id" date_delay="hours" date_start="start_date" default_group_by="instructor_id" string="Session Gantt">
+                    <field name="name"/>
+                </gantt>
+            </field>
+        </record>
+        <record id="openacademy_session_graph_view" model="ir.ui.view">
+            <field name="name">Openacademy Session Graph View</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <graph string="Participations by Courses">
+                    <field name="course_id"/>
+                    <field name="attendees_count" type="measure"/>
+                </graph>
+            </field>
+        </record>
+        <record id="openacademy_session_pivot_view" model="ir.ui.view">
+            <field name="name">Openacademy Session Pivot View</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <pivot string="Participations by Courses">
+                    <field name="course_id"/>
+                    <field name="attendees_count" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+        <record id="openacademy_session_kanban_view" model="ir.ui.view">
+            <field name="name">Openacademy Sesion Kanban View</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="course_id">
+                    <field name="color"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_color_{{kanban_getcolor(record.color.raw_value)}} oe_kanban_global_click_edit oe_semantic_html_override oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}}">
+                                <div class="oe_dropdown_kanban dropdown">
+                                    <!-- dropdown menu -->
+                                    <div class="oe_dropdown_toggle">
+                                        <i class="fa fa-bars fa-lg"/>
+                                        <ul class="oe_dropdown_menu">
+                                            <li>
+                                                <a type="delete">Delete</a>
+                                            </li>
+                                            <li>
+                                                <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="oe_clear"/>
+                                </div>
+                                <div t-attf-class="oe_kanban_content">
+                                    <!-- title -->Session name:
+                                    
+                                    <field name="name"/>
+                                    <br/>
+                                    Start date:
+                                    
+                                    <field name="start_date"/>
+                                    <br/>
+                                    Duration:
+                                    
+                                    <field name="duration"/></div>
+                                    <br/>
+                                    <h1>
+                                    Hola Mundo
+                                    <field name='name'/>
+                                    </h1>
+                                    <img src="https://www.jarsa.com.mx/logo.png"/>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record id="action_openacademy_session" model="ir.actions.act_window">
+            <field name="name">Sessions</field>
+            <field name="res_model">openacademy.session</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban,calendar,gantt,pivot,graph</field>
+        </record>
+        <menuitem action="action_openacademy_session" id="openacademy_session_menu" name="Sessions" parent="openacademy_sub_menu"/>
+    </data>
+</odoo>

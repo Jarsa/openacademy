@@ -9,16 +9,21 @@
                     <sheet>
                         <group>
                             <field name='name'/>
+                            <field name='responsible_id'/>
                         </group>
                         <notebook>
                             <page string="Description">
                                 <field name='description'/>
                             </page>
-                            <page string="About">
-                                This is an example of notebooks
+                            <page string="Sesions">
+                                <field name='session_ids'/>
                             </page>
                         </notebook>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -28,7 +33,7 @@
             <field name='arch' type='xml'>
                 <tree string='Courses'>
                     <field name='name'/>
-                    <field name='description'/>
+                    <field name='responsible_id'/>
                 </tree>
             </field>
         </record>
@@ -39,15 +44,20 @@
                 <search>
                     <field name="name"/>
                     <field name="description"/>
+                    <filter name="my_courses" string="My Courses"
+                            domain="[('responsible_id', '=', uid)]"/>
+                    <filter name="by_responsible" string="Responsible"
+                                context="{'group_by': 'responsible_id'}"/>
                 </search>
             </field>
         </record>
         <record id='action_openacademy_course' model='ir.actions.act_window'>
             <field name='name'>Openacademy Course Action</field>
             <field name='res_model'>openacademy.course</field>
+            <field name="context" eval="{'search_default_my_courses': 1}"/>
             <field name='view_type'>form</field>
             <field name='view_mode'>tree,form</field>
         </record>
-        <menuitem id="openacademy_course_menu" name="Courses" parent="openacademy.openacademy_menu" action="action_openacademy_course"/>
+        <menuitem id="openacademy_course_menu" name="Courses" parent="openacademy.openacademy_sub_menu" action="action_openacademy_course"/>
     </data>
 </odoo>

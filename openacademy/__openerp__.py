@@ -13,10 +13,18 @@
     "installable": True,
     "depends": [
         "base",
+        "mail",
     ],
     "data": [
         'views/openacademy.xml',
         'views/openacademy_course.xml',
+        'views/openacademy_session.xml',
+        'views/res_partner_view.xml',
+        'views/openacademy_session_workflow.xml',
+        'security/security.xml',
+        'security/ir.model.access.csv',
+        'wizards/openacademy_wizard.xml',
+        'report/openacademy_session.xml',
     ],
     "demo": [
         "demo/openacademy_course.xml",
